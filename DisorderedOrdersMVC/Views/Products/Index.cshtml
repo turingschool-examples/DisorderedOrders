@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Product>
+
+<h1>Available Products</h1>
+
+<ul>
+    @foreach (var product in Model)
+    {
+        <li>
+            <h3>@product.Name</h3>
+            <p>Quantity: @product.StockQuantity</p>
+        </li>
+    }
+</ul>

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Product>
+
+<form method="post" action="/orders">
+    <input type="hidden" id="CustomerId" name="CustomerId" value="@ViewData["CustomerId"]"/>
+
+    @foreach (var product in Model)
+    {
+        <div>
+            <label for="@product.Name">@product.Name</label>
+            <input type="number" id="@product.Name" name="@product.Name" value="0" />
+        </div>
+    }
+
+    <br />
+
+    <div>
+        <p>Please select your payment type:</p>
+        <input type="radio" id="bitcoin" name="paymentType" value="bitcoin">
+        <label for="bitcoin">Bitcoin</label><br>
+        <input type="radio" id="paypal" name="paymentType" value="paypal">
+        <label for="paypal">Paypal</label><br>
+        <input type="radio" id="creditcard" name="paymentType" value="creditcard">
+        <label for="creditcard">Credit Card</label>
+    </div>
+
+    <br />
+
+    <button type="submit">Create Order</button>
+
+</form>

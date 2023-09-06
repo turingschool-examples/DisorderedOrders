@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Customer>
+
+<h1>Customers</h1>
+
+<ul>
+    @foreach (var customer in Model)
+    {
+        <li>
+            <h3>@customer.Email</h3>
+            <p>Preferred: @customer.IsPreferred</p>
+            <a href="/orders/new?customerId=@customer.Id"><button>Create Order</button></a>
+        </li>
+    }
+</ul>

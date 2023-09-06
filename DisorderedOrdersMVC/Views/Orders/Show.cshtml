@@ -1,0 +1,19 @@
+﻿@model Order
+
+<h2>Order Number: @Model.Id</h2>
+<p>For: @Model.Customer.Email</p>
+
+<h3>Total: @ViewData["total"]</h3>
+
+<h2>Purchased Items:</h2>
+
+<ul>
+    @foreach (var orderItem in Model.Items)
+    {
+        <li>
+            <p>@orderItem.Item.Name</p>
+            <p>Quantity: @orderItem.Quantity</p>
+            <p>Price: @orderItem.Item.Price</p>
+        </li>
+    }
+</ul>
