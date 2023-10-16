@@ -54,12 +54,7 @@ namespace DisorderedOrdersMVC.Controllers
             }
 
             // calculate total price
-            var total = 0;
-            foreach (var orderItem in order.Items)
-            {
-                var itemPrice = orderItem.Item.Price * orderItem.Quantity;
-                total += itemPrice;
-            }
+            var total = CalculateTotal(order);
 
             // process payment
             IPaymentProcessor processor;
@@ -81,7 +76,7 @@ namespace DisorderedOrdersMVC.Controllers
             _context.Orders.Add(order);
             _context.SaveChanges();
 
-            return RedirectToAction("Show", new { id = order.Id});
+            return RedirectToAction("Show", new { id = order.Id });
         }
 
         [Route("/orders/{id:int}")]
@@ -93,17 +88,22 @@ namespace DisorderedOrdersMVC.Controllers
                     .ThenInclude(i => i.Item)
                 .Where(o => o.Id == id).First();
 
+
+            ViewData["total"] = CalculateTotal(order);
+            return View(order);
+        }
+
+
+        private int CalculateTotal(Order order)
+        {
             var total = 0;
             foreach (var orderItem in order.Items)
             {
                 var itemPrice = orderItem.Item.Price * orderItem.Quantity;
                 total += itemPrice;
             }
-            ViewData["total"] = total;
-
-            return View(order);
+            return total;
         }
-
 
     }
 }
